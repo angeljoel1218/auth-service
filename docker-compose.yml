@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    networks:
+      - auth-net
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    depends_on:
+      - database
+
+  database:
+    image: postgres:10.15-alpine
+    restart: unless-stopped
+    tty: true
+    environment:
+      POSTGRES_DB: db_auth
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - auth-net
+    volumes:
+      - pgdata:/var/lib/postgresql/database
+volumes:
+  pgdata:
+    driver: local
+networks:
+  auth-net:
+    driver: bridge
