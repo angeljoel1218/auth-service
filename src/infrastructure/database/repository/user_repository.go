@@ -1,9 +1,9 @@
 package repository
 
 import (
+	"auth-service/src/app/repository"
 	apierror "auth-service/src/domain/apierrors"
 	"auth-service/src/domain/models"
-	"auth-service/src/usecase/repository"
 	"errors"
 
 	"gorm.io/gorm"

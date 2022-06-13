@@ -8,8 +8,8 @@ import (
 
 func (h *HandlerInterface) userRoutes(group *gin.RouterGroup) {
 	uc := &controllers.UserController{
-		UserInteractor: h.UserInteractor,
-		Logger:         h.ConfigRouter.Logger,
+		UserService: h.UserService,
+		Logger:      h.ConfigRouter.Logger,
 	}
 	group.POST("/auth/login", uc.SignInAction)
 	group.POST("/auth/signup", uc.SignUpAction)

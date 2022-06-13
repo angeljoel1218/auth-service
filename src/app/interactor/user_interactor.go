@@ -1,27 +1,20 @@
 package interactor
 
 import (
+	"auth-service/src/app/repository"
+	us "auth-service/src/app/service"
 	apierror "auth-service/src/domain/apierrors"
 	fixture "auth-service/src/domain/fixtures"
 	"auth-service/src/domain/models"
-	"auth-service/src/usecase/presenter"
-	"auth-service/src/usecase/repository"
 )
 
 type userInteractor struct {
 	UserRepository repository.UserRepository
-	UserPresenter  presenter.UserPresenter
 }
 
-type UserInteractor interface {
-	SignIn(user *models.User) (*models.User, error)
-	SignUp(user *models.User) (*models.User, error)
-}
-
-func NewUserInteractor(r repository.UserRepository, p presenter.UserPresenter) UserInteractor {
+func NewUserInteractor(r repository.UserRepository) us.UserService {
 	return &userInteractor{
 		UserRepository: r,
-		UserPresenter:  p,
 	}
 }
 
@@ -48,7 +41,7 @@ func (ui *userInteractor) SignIn(input *models.User) (*models.User, error) {
 
 	user.Token = token
 
-	return ui.UserPresenter.UserResponse(user), nil
+	return user, nil
 }
 
 func (ui *userInteractor) SignUp(input *models.User) (*models.User, error) {
@@ -88,5 +81,5 @@ func (ui *userInteractor) SignUp(input *models.User) (*models.User, error) {
 
 	us.Token = token
 
-	return ui.UserPresenter.UserResponse(us), nil
+	return user, nil
 }

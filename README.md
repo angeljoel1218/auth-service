@@ -11,7 +11,7 @@ For this layer, the infrastructure folder has been created, which is related to 
 # Interface
 For this layer, the interface folder has been created that serves as a translator between the infrastructure layer and the domain since it packs the input and output data as required.
 # Use Cases
-The use case folder has been created for this layer, in which the commercial rules of the application are defined.
+The app folder has been created for this layer, in which the commercial rules of the application are defined.
 
 ### Installation:
 To run our application we execute the following command `docker-compose up --build`, you must have previously installed docker.

@@ -1,25 +1,37 @@
 package test
 
 import (
+	uinter "auth-service/src/app/interactor"
 	apierror "auth-service/src/domain/apierrors"
 	fixture "auth-service/src/domain/fixtures"
 	"auth-service/src/domain/models"
-	uprese "auth-service/src/interface/presenter"
-	uinter "auth-service/src/usecase/interactor"
 	"auth-service/test/mocks"
+	"log"
 	"testing"
 	"time"
 
+	common "auth-service/config"
+
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestSignIn(t *testing.T) {
 	t.Helper()
 
+	err := godotenv.Load("../../../.env")
+	if err != nil {
+		log.Fatal("error loading environment variables:", err)
+	}
+
+	err = common.LoadConfig()
+	if err != nil {
+		log.Fatal("error loading environment variables:", err)
+	}
+
 	r, mock := mocks.UserRepository(t)
-	p := uprese.NewUserPresenter()
-	i := uinter.NewUserInteractor(r, p)
+	i := uinter.NewUserInteractor(r)
 
 	hashed, _ := fixture.HashAndSalt("12345678")
 
@@ -98,9 +110,18 @@ func TestSignIn(t *testing.T) {
 func TestSignUp(t *testing.T) {
 	t.Helper()
 
+	err := godotenv.Load("../../../.env")
+	if err != nil {
+		log.Fatal("error loading environment variables:", err)
+	}
+
+	err = common.LoadConfig()
+	if err != nil {
+		log.Fatal("error loading environment variables:", err)
+	}
+
 	r, mock := mocks.UserRepository(t)
-	p := uprese.NewUserPresenter()
-	i := uinter.NewUserInteractor(r, p)
+	i := uinter.NewUserInteractor(r)
 
 	var id int64 = 1
 	var usr = &models.User{

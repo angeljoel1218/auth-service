@@ -26,7 +26,7 @@ func (r *registry) StartHandlerInterface() (*gin.Engine, error) {
 	logger := iniLogger()
 
 	handler := routers.NewHandlerInterface(&routers.HandlerInterface{
-		UserInteractor: r.NewUserInteractor(),
+		UserService: r.NewUserSerivice(),
 		ConfigRouter: routers.Config{
 			MaxBodyBytes: config.C.Route.MaxBodyBytes,
 			ApiURI:       config.C.Route.ApiUri,

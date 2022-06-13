@@ -1,8 +1,8 @@
 package mocks
 
 import (
-	irepo "auth-service/src/interface/repository"
-	urepo "auth-service/src/usecase/repository"
+	urepo "auth-service/src/app/repository"
+	irepo "auth-service/src/infrastructure/database/repository"
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"

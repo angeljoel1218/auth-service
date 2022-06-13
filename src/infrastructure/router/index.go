@@ -1,8 +1,8 @@
 package routers
 
 import (
+	us "auth-service/src/app/service"
 	"auth-service/src/interface/middleware"
-	"auth-service/src/usecase/interactor"
 
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
@@ -16,8 +16,8 @@ type Config struct {
 }
 
 type HandlerInterface struct {
-	UserInteractor interactor.UserInteractor
-	ConfigRouter   Config
+	UserService  us.UserService
+	ConfigRouter Config
 }
 
 func NewHandlerInterface(h *HandlerInterface) *gin.Engine {

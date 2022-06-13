@@ -1,11 +1,11 @@
 package controllers
 
 import (
+	us "auth-service/src/app/service"
 	apierror "auth-service/src/domain/apierrors"
 	fixture "auth-service/src/domain/fixtures"
 	u "auth-service/src/domain/fixtures"
 	"auth-service/src/domain/models"
-	"auth-service/src/usecase/interactor"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,8 +13,8 @@ import (
 )
 
 type UserController struct {
-	UserInteractor interactor.UserInteractor
-	Logger         *zerolog.Logger
+	UserService us.UserService
+	Logger      *zerolog.Logger
 }
 
 func (h *UserController) SignUpAction(c *gin.Context) {
@@ -24,7 +24,7 @@ func (h *UserController) SignUpAction(c *gin.Context) {
 		return
 	}
 
-	user, err := h.UserInteractor.SignUp(user)
+	user, err := h.UserService.SignUp(user)
 
 	if err != nil {
 		c.JSON(apierror.HttpStatus(err), u.Message(1, err.Error()))
@@ -42,7 +42,7 @@ func (h *UserController) SignInAction(c *gin.Context) {
 		return
 	}
 
-	res, err := h.UserInteractor.SignIn(login)
+	res, err := h.UserService.SignIn(login)
 
 	if err != nil {
 		c.JSON(apierror.HttpStatus(err), u.Message(1, err.Error()))
